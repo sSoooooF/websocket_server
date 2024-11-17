@@ -11,7 +11,25 @@ server.on('connection', (socket) => {
   socket.on('message', (message) => {
     const data = JSON.parse(message);
 
-    // Создание комнаты
+    if (data.type === 'video_action') {
+      const roomID = data.roomID;
+      if (rooms[roomID]) {
+        // Рассылаем всем клиентам в комнате действие (play/pause/seek)
+        rooms[roomID].clients.forEach((client) => {
+          if (client.readyState === WebSocket.OPEN && client !== socket) {
+            client.send(
+              JSON.stringify({
+                type: 'video_action',
+                action: data.action,
+                time: data.time,
+              })
+            );
+          }
+        });
+      }
+    }
+    
+
     if (data.type === 'create_room') {
       const roomID = data.roomID;
       rooms[roomID] = {
