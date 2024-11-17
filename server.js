@@ -14,7 +14,6 @@ server.on('connection', (socket) => {
     if (data.type === 'video_action') {
       const roomID = data.roomID;
       if (rooms[roomID]) {
-        // Рассылаем всем клиентам в комнате действие (play/pause/seek)
         rooms[roomID].clients.forEach((client) => {
           if (client.readyState === WebSocket.OPEN && client !== socket) {
             client.send(
