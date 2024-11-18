@@ -95,7 +95,7 @@ server.on('connection', (socket) => {
         });
       }
     }
-  });
+  }});
 
   socket.on('close', () => {
     if (currentRoom && rooms[currentRoom]) {
