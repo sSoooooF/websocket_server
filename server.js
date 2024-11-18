@@ -1,12 +1,8 @@
 const WebSocket = require('ws');
 
-const server = new WebSocket.Server({ port: 8080 });
-console.log('WebSocket сервер запущен на ws://localhost:8080');
-
-const rooms = {}; 
 const port = process.env.PORT || 8080;
 const server = new WebSocket.Server({ port });
-
+console.log('WebSocket сервер запущен');
 const rooms = {};
 
 server.on('connection', (socket) => {
